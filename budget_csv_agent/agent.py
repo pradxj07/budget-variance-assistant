@@ -1,12 +1,14 @@
 from google.adk.agents.llm_agent import Agent
 from google.adk.tools.agent_tool import AgentTool
-from readcsv_agent.agent import read_csv_agent
+from pydantic import BaseModel
+import Logfiles
+from google.genai import types
+import read_csv_agent
 
 # Create a logger instance to capture messages above DEBUG level in file in "gitignoreme/Logs/ folder under budget-variance-assistant folder  
 log = Logfiles.get_logger(__name__)           
 print(log.name)                                         
-log.info(f"this is info logging")
-# ' log.exception(\"This is exception logging")'
+log.info(f"budget_csv_agent is running")
 
 
 retry_config= types.HttpRetryOptions(
@@ -17,6 +19,7 @@ retry_config= types.HttpRetryOptions(
 )
 
 budgetfile = "TestFiles\testbudget-oct-dec2025.csv"
+# csv_tool  = AgentTool(read_csv_agent)
 
 root_agent = Agent(
     model='gemini-2.5-flash',
@@ -27,5 +30,5 @@ root_agent = Agent(
     'budget amount by vendor, ' \
     'get vendornames, ' \
     'get budget amount by vendor and month, etc. ',
-    tools=[AgentTool(read_csv_agent)]
+    tools=[read_csv_agent]
 )

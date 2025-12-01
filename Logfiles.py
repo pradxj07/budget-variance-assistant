@@ -1,7 +1,5 @@
 import logging
-# import logging.config
 from gitignoreme.agent_constants import get_log_file_path 
-
 
 def get_logger(module_name):
     logger = logging.getLogger(module_name)

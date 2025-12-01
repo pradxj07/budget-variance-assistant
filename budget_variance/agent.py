@@ -6,8 +6,7 @@ from google.genai import types
 # Create a logger instance to capture messages above DEBUG level in file in "gitignoreme/Logs/ folder under budget-variance-assistant folder  
 log = Logfiles.get_logger(__name__)           
 print(log.name)                                         
-log.info(f"this is info logging")
-# ' log.exception(\"This is exception logging")'
+log.info(f"Budget_variance - the owner agent is running")
 
 retry_config= types.HttpRetryOptions(
     attempts=2,  # Maximum retry attempts
@@ -19,7 +18,7 @@ retry_config= types.HttpRetryOptions(
 
 root_agent = Agent(
     model='gemini-2.5-flash',
-    name='root_agent',
+    name='budget_variance_agent',
     description='A helpful assistant that runs csv agenets in parallel to get budget variance information.',
     instruction="Take input from user about which month's budget variance is required and run the casv agents  the same",
     tools=[parallel_csv_agent]
