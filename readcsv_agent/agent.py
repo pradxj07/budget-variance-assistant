@@ -1,13 +1,30 @@
 from google.adk.agents.llm_agent import Agent
-import logging
+# import logging
+import Logfiles
+from google.genai import types
+from google.adk.models.google_llm import Gemini
 
-# from https://google.github.io/adk-docs/observability/logging/#how-to-configure-logging
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='%(asctime)s - %(levelname)s - %(name)s - %(message)s'
-)
+## Wrapper agent to read invoices 
 
-retry_config=types.HttpRetryOptions(
+# function to read invoice data from CSV
+def get_invoice_data(invoicefile):
+    # Function to read and return invoice data from the CSV file
+    import pandas as pd
+
+    df = pd.read_csv(invoicefile)
+
+    print(df.to_string())     
+
+    return df
+
+# Create a logger instance to capture messages above DEBUG level in file in "gitignoreme/Logs/ folder under budget-variance-assistant folder  
+log = Logfiles.get_logger(__name__)           
+print(log.name)                                         
+log.info(f"this is info logging")
+# ' log.exception(\"This is exception logging")'
+
+
+retry_config= types.HttpRetryOptions(
     attempts=2,  # Maximum retry attempts
     exp_base=7,  # Delay multiplier
     initial_delay=1,
@@ -24,15 +41,9 @@ root_agent = Agent(
     name='readcsv_agent',
     description='A helpful assistant for user questions regarding {invoicefile}.',
     instruction='Answer user questions to the best of your knowledge about dataframe created from csv',
-    tools=[get_invoice_data()]
+    tools=[get_invoice_data({invoicefile})]
 )
 
-def get_invoice_data(invoicefile):
-    # Function to read and return invoice data from the CSV file
-    import pandas as pd
 
-    df = pd.read_csv(invoicefile)
 
-    print(df.to_string())     
 
-    return df

@@ -38,4 +38,14 @@ Owner agent - budget_variance
 
 
 ## readcsv_agent #
+Tool to read a csv and asnwer questions about them 
 https://docs.langchain.com/oss/python/integrations/tools/pandas
+https://github.com/google/adk-python/issues/
+
+
+invoice_csv_agent - 
+Wrapper/ Parent agent that calls read_csv agent to read invoices data
+
+budget_csv_agent - 
+Wrapper/Parent agent that calls read_csv agent to read budget data
+

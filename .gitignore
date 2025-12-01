@@ -6,4 +6,5 @@ my-simple-agent.py/
 budget_variance/.env
 Documents/
 TestFiles/
+**/__pycache__/
 

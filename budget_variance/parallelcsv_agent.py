@@ -7,7 +7,7 @@ retry_config=types.HttpRetryOptions(
     initial_delay=1,
     http_status_codes=[429, 500, 503, 504], # Retry on these HTTP errors
 )
-root_agent = Agent(
+root_agent = ParallelAgent(
     model=Gemini(
         model="gemini-2.5-flash-lite",
         retry_options=retry_config
