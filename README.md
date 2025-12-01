@@ -33,19 +33,26 @@ Enter Model 1 , 11
 For Google gemini, enter the api key created in AI studio. 
 Ensure you add .env file of the agent folder to the .gitignore file
 
-Owner agent - budget_variance
+# Agents involved
 
+## Owner agent - budget_variance agent -
+Parent agent to run the parallel agent and gather data about the budget and invoice 
 
+## parallel_csv_agent - 
+Runs invoice_csv_agent and budget_csv_agent in parallel to understand the the invoice and budget provided in the csv files
 
-## readcsv_agent #
+## Agents that conduct the spreadsheet investigation 
+### invoice_csv_agent - 
+Wrapper/ Parent agent that calls read_csv agent to read invoices data
+
+### budget_csv_agent - 
+Wrapper/Parent agent that calls read_csv agent to read budget data
+
+### readcsv_agent #
 Tool to read a csv and asnwer questions about them 
 https://docs.langchain.com/oss/python/integrations/tools/pandas
 https://github.com/google/adk-python/issues/
 
 
-invoice_csv_agent - 
-Wrapper/ Parent agent that calls read_csv agent to read invoices data
 
-budget_csv_agent - 
-Wrapper/Parent agent that calls read_csv agent to read budget data
 

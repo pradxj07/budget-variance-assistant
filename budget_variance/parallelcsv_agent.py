@@ -1,5 +1,16 @@
 from google.adk.agents.llm_agent import Agent, ParallelAgent
+from google.adk.tools.agent_tool import AgentTool
 from google.adk.models.google_llm import Gemini
+from budget_csv_agent import budget_csv_agent
+from invoice_csv_agent import invoice_csv_agent
+import Logfiles
+from google.genai import types
+
+# Create a logger instance to capture messages above DEBUG level in file in "gitignoreme/Logs/ folder under budget-variance-assistant folder  
+log = Logfiles.get_logger(__name__)           
+print(log.name)                                         
+log.info(f"this is info logging")
+# ' log.exception(\"This is exception logging")'
 
 retry_config=types.HttpRetryOptions(
     attempts=2,  # Maximum retry attempts
@@ -12,9 +23,9 @@ root_agent = ParallelAgent(
         model="gemini-2.5-flash-lite",
         retry_options=retry_config
     ),
-    name='readcsv_agent',
+    name='parallel_csv_agent',
     description='A helpful assistant for user questions.',
-    instruction='Answer user questions to the best of your knowledge about csv',
-    tools=[AgentTool(readcsv_agent)]
+    instruction='Answer user questions to the best of your knowledge about budget and invoice csv files.',
+    tools=[AgentTool(budget_csv_agent),AgentTool(invoice_csv_agent)]
 
 )
